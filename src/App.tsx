@@ -1,7 +1,17 @@
 import React from "react"
+import { GlobalStyle } from "./style"
+import { IconStyle } from "./assets/iconfont/iconfont"
 
 function App() {
-	return <div className='App'>APP</div>
+	return (
+		<div className='App'>
+			<GlobalStyle></GlobalStyle>
+			<IconStyle></IconStyle>
+			123
+			<a href='#12300'>链接</a>
+			<i className='iconfont'>&#xe62b;</i>
+		</div>
+	)
 }
 
 export default App
