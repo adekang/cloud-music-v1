@@ -6,7 +6,7 @@ import Recommend from "../application/Recommend"
 import Singers from "../application/Singers"
 import Rank from "../application/Singers"
 
-const routes: RouteConfig[] = [
+const routes = [
 	{
 		path: "/",
 		component: Home,
@@ -15,7 +15,7 @@ const routes: RouteConfig[] = [
 				path: "/",
 				exact: true,
 				render: () => {
-					return <Redirect to={"/admin/control"}></Redirect>
+					return <Redirect to={'/admin/control'}/>
 				},
 			},
 			{
