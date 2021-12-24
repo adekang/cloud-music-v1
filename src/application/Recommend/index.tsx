@@ -3,9 +3,13 @@ import Slider from '../../components/slider';
 import RecommendList from '../../components/list';
 import {Content} from './style';
 import Scroll from '../../baseUI/scroll';
+import {getBannerRequest} from '../../api/request';
 
 function Recommend() {
 
+  getBannerRequest().then((data) => {
+    console.log(data);
+  });
   //mock 数据
   const bannerList = [1, 2, 3, 4].map(item => {
     return {imageUrl: 'http://p1.music.126.net/ZYLJ2oZn74yUz5x8NBGkVA==/109951164331219056.jpg'};
