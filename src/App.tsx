@@ -1,7 +1,7 @@
 import React from "react"
 import { GlobalStyle } from "./style"
 import { IconStyle } from "./assets/iconfont/iconfont"
-import routes from "./routes/index.js"
+import routes from "./routes/index"
 import { HashRouter } from "react-router-dom"
 import { renderRoutes } from "react-router-config"
 import store from "./store/index"

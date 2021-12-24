@@ -3,7 +3,7 @@ import { renderRoutes } from "react-router-config"
 import { Top, Tab, TabItem } from "./style"
 import { NavLink } from "react-router-dom" // 利用 NavLink 组件进行路由跳转
 
-function Home(props) {
+function Home(props: { route: any }) {
 	const { route } = props
 
 	return (

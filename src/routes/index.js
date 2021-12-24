@@ -1,11 +1,12 @@
 import React from "react"
 import { Redirect } from "react-router-dom"
+import { RouteConfig } from "react-router-config"
 import Home from "../application/Home"
 import Recommend from "../application/Recommend"
 import Singers from "../application/Singers"
 import Rank from "../application/Singers"
 
-const routes = [
+const routes: RouteConfig[] = [
 	{
 		path: "/",
 		component: Home,
@@ -13,7 +14,9 @@ const routes = [
 			{
 				path: "/",
 				exact: true,
-				render: () => <Redirect to={"/recommend"} />,
+				render: () => {
+					return <Redirect to={"/admin/control"}></Redirect>
+				},
 			},
 			{
 				path: "/recommend",
