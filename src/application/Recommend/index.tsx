@@ -4,8 +4,8 @@ import RecommendList from '../../components/list';
 import {Content} from './style';
 import Scroll from '../../baseUI/scroll';
 import {connect} from 'react-redux';
-import * as actionTypes from '../Recommend/store/actionCreators';
-
+import * as actionFetch from '../Recommend/store/actionCreators';
+import {forceCheck} from 'react-lazyload';
 
 function Recommend(props: { bannerList?: any; recommendList?: any; getBannerDataDispatch?: any; getRecommendListDataDispatch?: any; }) {
 
@@ -25,7 +25,7 @@ function Recommend(props: { bannerList?: any; recommendList?: any; getBannerData
 
   return (
     <Content>
-      <Scroll>
+      <Scroll onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerListJS}/>
           <RecommendList recommendList={recommendListJS}/>
@@ -46,10 +46,10 @@ const mapStateToProps = (state: { getIn: (arg0: string[]) => any; }) => ({
 const mapDispatchToProps = (dispatch: (arg0: any) => void) => {
   return {
     getBannerDataDispatch() {
-      dispatch(actionTypes.getBannerList());
+      dispatch(actionFetch.getBannerList());
     },
     getRecommendListDataDispatch() {
-      dispatch(actionTypes.getRecommendList());
+      dispatch(actionFetch.getRecommendList());
     },
   };
 };
