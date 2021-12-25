@@ -22,10 +22,11 @@ export {
 }
 
 // 歌手种类
-export const categoryTypes = [{
-  name: '华语男',
-  key: '1001'
-},
+export const categoryTypes = [
+  {
+    name: '华语男',
+    key: '1001'
+  },
   {
     name: '华语女',
     key: '1002'
@@ -85,10 +86,11 @@ export const categoryTypes = [{
 ]
 
 // 歌手首字母
-export const alphaTypes = [{
-  key: 'A',
-  name: 'A'
-},
+export const alphaTypes = [
+  {
+    key: 'A',
+    name: 'A'
+  },
   {
     key: 'B',
     name: 'B'
@@ -190,3 +192,23 @@ export const alphaTypes = [{
     name: 'Z'
   }
 ]
+
+
+export const categoryMap = new Map([
+  ['1001', {type: 1, area: 7}],
+  ['1002', {type: 2, area: 7}],
+  ['1003', {type: 3, area: 7}],
+  ['2001', {type: 1, area: 96}],
+  ['2002', {type: 2, area: 96}],
+  ['2003', {type: 3, area: 96}],
+  ['6001', {type: 1, area: 8}],
+  ['6002', {type: 2, area: 8}],
+  ['6003', {type: 3, area: 8}],
+  ['7001', {type: 1, area: 16}],
+  ['7002', {type: 2, area: 16}],
+  ['7003', {type: 3, area: 16}],
+  ['4001', {type: 1, area: 0}],
+  ['4002', {type: 2, area: 0}],
+  ['4003', {type: 3, area: 0}],
+])
+
