@@ -7,9 +7,10 @@ import {connect} from 'react-redux';
 import * as actionFetch from '../Recommend/store/actionCreators';
 import {forceCheck} from 'react-lazyload';
 import Loading from '../../baseUI/loading/index';
+import {renderRoutes} from 'react-router-config';
 
 function Recommend(props: any) {
-  const {bannerList, recommendList, enterLoading} = props;
+  const {bannerList, recommendList, enterLoading, history} = props;
 
   const {getBannerDataDispatch, getRecommendListDataDispatch} = props;
 
@@ -35,9 +36,10 @@ function Recommend(props: any) {
       <Scroll onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerListJS}/>
-          <RecommendList recommendList={recommendListJS}/>
+          <RecommendList recommendList={recommendListJS} history={history}/>
         </div>
       </Scroll>
+      {renderRoutes(props.route.routes)}
     </Content>
   );
 }
