@@ -1,9 +1,10 @@
-import React, {forwardRef, useState, useEffect, useRef, useImperativeHandle} from 'react';
+import React, {forwardRef, useState, useEffect, useRef, useImperativeHandle, useMemo} from 'react';
 
 import BScroll from 'better-scroll';
 import styled from 'styled-components';
 import Loading from '../loading/index';
 import LoadingV2 from '../loading-v2/index';
+import {debounce} from '../../api/utils';
 
 interface Props {
   direction?: 'vertical' | 'horizontal',// 滚动的方向
@@ -77,6 +78,15 @@ const Scroll: React.FC<Props> = forwardRef((props, ref) => {
     bounceBottom = true,
   } = props;
 
+  let pullUpDebounce = useMemo(() => {
+    return debounce(pullUp, 300);
+  }, [pullUp]);
+// 千万注意，这里不能省略依赖，
+// 不然拿到的始终是第一次 pullUp 函数的引用，相应的闭包作用域变量都是第一次的，产生闭包陷阱。下同。
+
+  let pullDownDebounce = useMemo(() => {
+    return debounce(pullDown, 300);
+  }, [pullDown]);
 
   useEffect(() => {
     const scroll = new BScroll(scrollContainerRef.current, {
@@ -106,31 +116,37 @@ const Scroll: React.FC<Props> = forwardRef((props, ref) => {
     };
   }, [onScroll, bScroll]);
 
+  // 判断用户的上拉动作
   useEffect(() => {
     if (!bScroll || !pullUp) return;
-    bScroll.on('scrollEnd', () => {
+    const handlePullUp = () => {
       //判断是否滑动到了底部
       if (bScroll.y <= bScroll.maxScrollY + 100) {
-        pullUp();
+        pullUpDebounce();
       }
-    });
-    return () => {
-      bScroll.off('scrollEnd');
     };
-  }, [pullUp, bScroll]);
+    bScroll.on('scrollEnd', handlePullUp);
+    // 解绑
+    return () => {
+      bScroll.off('scrollEnd', handlePullUp);
+    };
 
+  }, [pullUp, pullUpDebounce, bScroll]);
+
+  // 判断用户的下拉动作
   useEffect(() => {
     if (!bScroll || !pullDown) return;
-    bScroll.on('touchEnd', (pos: { y: number; }) => {
+    const handlePullDown = (pos: any) => {
       //判断用户的下拉动作
       if (pos.y > 50) {
-        pullDown();
+        pullDownDebounce();
       }
-    });
-    return () => {
-      bScroll.off('touchEnd');
     };
-  }, [pullDown, bScroll]);
+    bScroll.on('touchEnd', handlePullDown);
+    return () => {
+      bScroll.off('touchEnd', handlePullDown);
+    };
+  }, [pullDown, pullUpDebounce, bScroll]);
 
 
   useEffect(() => {
