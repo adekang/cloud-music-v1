@@ -12,7 +12,7 @@ const loading = keyframes`
 `;
 const LoadingWrapper = styled.div`
   > div {
-    position: fixed;
+    position: absolute;
     z-index: 1000;
     left: 0;
     right: 0;
@@ -32,13 +32,19 @@ const LoadingWrapper = styled.div`
   }
 `;
 
-function Loading() {
+interface Props {
+  show?: boolean;
+}
+
+const Loading: React.FC<Props> = (props) => {
+  const {show = true} = props;
+
   return (
-    <LoadingWrapper>
+    <LoadingWrapper style={show ? {display: ''} : {display: 'none'}}>
       <div></div>
       <div></div>
     </LoadingWrapper>
   );
-}
+};
 
 export default React.memo(Loading);

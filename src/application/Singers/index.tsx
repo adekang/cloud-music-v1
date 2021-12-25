@@ -8,7 +8,7 @@ import {
   List,
   ListItem
 } from './style';
-
+import Loading from '../../baseUI/loading';
 import {connect} from 'react-redux';
 import {
   getSingerList,
@@ -25,7 +25,16 @@ import {
 
 const Singers = (props: any) => {
 
-  const {singerList, pageCount, songsCount, pullUpLoading, pullDownLoading, enterLoading} = props;
+  const {
+    singerList,
+    pageCount,
+    pullUpRefreshDispatch,
+    pullDownRefreshDispatch,
+    songsCount,
+    pullUpLoading,
+    pullDownLoading,
+    enterLoading
+  } = props;
 
   const {updateDispatch, getHotSinger, updateCategory, updateAlpha, pullUpRefresh, pullDownRefresh} = props;
 
@@ -42,6 +51,15 @@ const Singers = (props: any) => {
     setCategory(val);
     updateDispatch(val, alpha);
   };
+
+  const handlePullUp = () => {
+    pullUpRefreshDispatch(category, alpha, category === '', pageCount);
+  };
+
+  const handlePullDown = () => {
+    pullDownRefreshDispatch(category, alpha);
+  };
+
   const renderSingerList = () => {
     const {singerList} = props;
     const singerListJS = singerList ? singerList.toJS() : [];
@@ -78,7 +96,13 @@ const Singers = (props: any) => {
         />
       </NavContainer>
       <ListContainer>
-        <Scroll>
+        <Loading show={enterLoading}/>
+        <Scroll
+          pullUp={handlePullUp}
+          pullDown={handlePullDown}
+          pullUpLoading={pullUpLoading}
+          pullDownLoading={pullDownLoading}
+        >
           {renderSingerList()}
         </Scroll>
       </ListContainer>

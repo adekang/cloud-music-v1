@@ -31,7 +31,7 @@ function Recommend(props: any) {
 
   return (
     <Content>
-      {enterLoading ? <Loading/> : null}
+      {enterLoading ? <Loading show/> : null}
       <Scroll onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerListJS}/>
