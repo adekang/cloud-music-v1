@@ -25,12 +25,10 @@ const Rank = (props: any) => {
     }
   }, []);
 
-  const enterDetail = (name: string) => {
-    const idx = filterIndex(name);
-    if (idx === null) {
-      alert('暂无相关数据');
-      return;
-    }
+  const enterDetail = (id: number) => {
+
+    props.history.push(`/rank/${id}`);
+
   };
   const renderSongList = (list: any[]) => {
     return list.length ? (
@@ -54,7 +52,7 @@ const Rank = (props: any) => {
           list.map((item: any) => {
             // @ts-ignore
             return (
-              <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail(item.name)}>
+              <ListItem key={item.coverImgId} tracks={item.tracks} onClick={() => enterDetail(item.id)}>
                 <div className="img_wrapper">
                   <img src={item.coverImgUrl} alt=""/>
                   <div className="decorate"/>
@@ -70,6 +68,8 @@ const Rank = (props: any) => {
   };
 // 榜单数据未加载出来之前都给隐藏
   let displayStyle = loading ? {'display': 'none'} : {'display': ''};
+
+
   return (
     <>
       <Container>
