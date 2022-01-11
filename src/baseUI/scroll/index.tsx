@@ -6,31 +6,6 @@ import Loading from '../loading/index';
 import LoadingV2 from '../loading-v2/index';
 import {debounce} from '../../api/utils';
 
-interface Props {
-  direction?: 'vertical' | 'horizontal',// 滚动的方向
-  click?: true,// 是否支持点击
-  refresh?: boolean,// 是否刷新
-  onScroll?: (v: any) => void,// 滑动触发的回调函数
-  pullUp?: () => void,// 上拉加载逻辑
-  pullDown?: () => void,// 下拉加载逻辑
-  pullUpLoading?: boolean,// 是否显示上拉 loading 动画
-  pullDownLoading?: boolean,// 是否显示下拉 loading 动画
-  bounceTop?: boolean,// 是否支持向上吸顶
-  bounceBottom?: boolean,// 是否支持向下吸底
-}
-
-const defaultProps = {
-  direction: 'vertical',
-  click: true,
-  refresh: true,
-  onScroll: null,
-  pullUpLoading: false,
-  pullDownLoading: false,
-  pullUp: null,
-  pullDown: null,
-  bounceTop: true,
-  bounceBottom: true
-};
 
 const ScrollContainer = styled.div`
   width: 100%;
@@ -59,10 +34,23 @@ export const PullDownLoading = styled.div`
   z-index: 100;
 `;
 
+interface Props {
+  direction?: 'vertical' | 'horizontal',// 滚动的方向
+  click?: true,// 是否支持点击
+  refresh?: boolean,// 是否刷新
+  onScroll?: (v: any) => void,// 滑动触发的回调函数
+  pullUp?: () => void,// 上拉加载逻辑
+  pullDown?: () => void,// 下拉加载逻辑
+  pullUpLoading?: boolean,// 是否显示上拉 loading 动画
+  pullDownLoading?: boolean,// 是否显示下拉 loading 动画
+  bounceTop?: boolean,// 是否支持向上吸顶
+  bounceBottom?: boolean,// 是否支持向下吸底
+  children?: any
+}
 
-const Scroll: React.FC<Props> = forwardRef((props, ref) => {
+
+const Scroll = forwardRef<any, Props>((props, ref) => {
   const [bScroll, setBScroll] = useState<any>();
-
   const scrollContainerRef = useRef<any>();
 
   const {

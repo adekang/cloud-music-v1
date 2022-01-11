@@ -28,9 +28,9 @@ const HeaderContainer = styled.div`
 `;
 
 interface Props {
-  handleClick: () => void,
-  title: string,
-  isMarquee: boolean
+  handleClick?: () => void,
+  title?: string,
+  isMarquee?: boolean
 }
 
 // 处理函数组件拿不到 ref 的问题，所以用 forwardRef
