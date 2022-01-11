@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {CSSTransition} from 'react-transition-group';
 import {Container} from './style';
-import {HEADER_HEIGHT} from './../../api/config';
+import {HEADER_HEIGHT} from '../../api/config';
 import {ImgWrapper, CollectButton, SongListWrapper, BgLayer} from './style';
 import Header from '../../baseUI/header/index';
 import Scroll from '../../baseUI/scroll/index';
