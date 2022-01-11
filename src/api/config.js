@@ -212,3 +212,6 @@ export const categoryMap = new Map([
   ['4003', {type: 3, area: 0}],
 ])
 
+//顶部的高度
+export const HEADER_HEIGHT = 45
+

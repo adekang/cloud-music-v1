@@ -89,7 +89,7 @@ const Singers = (props: any) => {
 
 
   return (
-    <>
+    <div>
       <Data>
         <NavContainer>
           <Horizon list={categoryTypes}
@@ -115,7 +115,7 @@ const Singers = (props: any) => {
         </ListContainer>
       </Data>
       {renderRoutes(props.route.routes)}
-    </>
+    </div>
   );
 };
 
