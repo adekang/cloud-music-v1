@@ -24,6 +24,10 @@ function Player(props: any) {
   const {toggleFullScreenDispatch} = props;
   let percent = 0.2;
 
+  const onProgressChange = () => {
+    console.log('onProgressChange');
+  };
+
   return (
     <div>
       <MiniPlayer
@@ -33,6 +37,7 @@ function Player(props: any) {
         toggleFullScreen={toggleFullScreenDispatch}
       />
       <NormalPlayer
+        onProgressChange={onProgressChange}
         percent={percent}
         song={currentSong}
         fullScreen={fullScreen}

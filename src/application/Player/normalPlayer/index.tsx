@@ -16,13 +16,48 @@ import ProgressBar from '../../../baseUI/progressBar';
 
 
 function NormalPlayer(props: any) {
-  const {song, fullScreen, percent} = props;
+  const {
+    fullScreen,
+    song,
+    mode,
+    playing,
+    percent,
+    currentTime,
+    duration,
+  } = props;
+
+  const {
+    changeMode,
+    handlePrev,
+    handleNext,
+    onProgressChange,
+    clickPlaying,
+    toggleFullScreen
+  } = props;
+
   const {toggleFullScreenDispatch} = props;
   const normalPlayerRef = useRef<any>();
   const cdWrapperRef = useRef<any>();
   const transform = prefixStyle('transform');
 
 
+// 计算偏移的辅助函数
+  const _getPosAndScale = () => {
+    const targetWidth = 40;
+    const paddingLeft = 40;
+    const paddingBottom = 30;
+    const paddingTop = 80;
+    const width = window.innerWidth * 0.8;
+    const scale = targetWidth / width;
+    // 两个圆心的横坐标距离和纵坐标距离
+    const x = -(window.innerWidth / 2 - paddingLeft);
+    const y = window.innerHeight - paddingTop - width / 2 - paddingBottom;
+    return {
+      x,
+      y,
+      scale
+    };
+  };
   // 启用帧动画
   const enter = () => {
     normalPlayerRef.current.style.display = 'block';
@@ -48,25 +83,6 @@ function NormalPlayer(props: any) {
     });
     animations.runAnimation(cdWrapperRef.current, 'move');
   };
-
-// 计算偏移的辅助函数
-  const _getPosAndScale = () => {
-    const targetWidth = 40;
-    const paddingLeft = 40;
-    const paddingBottom = 30;
-    const paddingTop = 80;
-    const width = window.innerWidth * 0.8;
-    const scale = targetWidth / width;
-    // 两个圆心的横坐标距离和纵坐标距离
-    const x = -(window.innerWidth / 2 - paddingLeft);
-    const y = window.innerHeight - paddingTop - width / 2 - paddingBottom;
-    return {
-      x,
-      y,
-      scale
-    };
-  };
-
   const afterEnter = () => {
     // 进入后解绑帧动画
     const cdWrapperDom = cdWrapperRef.current;
@@ -80,7 +96,6 @@ function NormalPlayer(props: any) {
     const {x, y, scale} = _getPosAndScale();
     cdWrapperDom.style[transform] = `translate3d (${x} px, ${y} px, 0) scale (${scale})`;
   };
-
   const afterLeave = () => {
     if (!cdWrapperRef.current) return;
     const cdWrapperDom = cdWrapperRef.current;
@@ -90,7 +105,6 @@ function NormalPlayer(props: any) {
     // 不置为 none 现在全屏播放器页面还是存在
     normalPlayerRef.current.style.display = 'none';
   };
-
 
   return (
     <CSSTransition
@@ -137,7 +151,7 @@ function NormalPlayer(props: any) {
             <div className="progress-bar-wrapper">
               <ProgressBar
                 percent={percent}
-                // percentChange={onProgressChange}
+                percentChange={onProgressChange}
               />
             </div>
             {/*<div className="time time-r">{formatPlayTime(duration)}</div>*/}
