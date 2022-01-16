@@ -22,16 +22,18 @@ function Player(props: any) {
   const {fullScreen} = props;
 
   const {toggleFullScreenDispatch} = props;
-
+  let percent = 0.2;
 
   return (
     <div>
       <MiniPlayer
+        percent={percent}
         song={currentSong}
         fullScreen={fullScreen}
         toggleFullScreen={toggleFullScreenDispatch}
       />
       <NormalPlayer
+        percent={percent}
         song={currentSong}
         fullScreen={fullScreen}
         toggleFullScreen={toggleFullScreenDispatch}

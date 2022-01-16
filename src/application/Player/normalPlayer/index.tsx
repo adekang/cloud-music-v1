@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {getName} from '../../../api/utils';
 import {CSSTransition} from 'react-transition-group';
 import animations from 'create-keyframe-animation';
@@ -10,15 +10,18 @@ import {
   Bottom,
   Operators,
   CDWrapper,
+  ProgressWrapper,
 } from './style';
+import ProgressBar from '../../../baseUI/progressBar';
 
 
 function NormalPlayer(props: any) {
-  const {song, fullScreen} = props;
+  const {song, fullScreen, percent} = props;
   const {toggleFullScreenDispatch} = props;
   const normalPlayerRef = useRef<any>();
   const cdWrapperRef = useRef<any>();
   const transform = prefixStyle('transform');
+
 
   // 启用帧动画
   const enter = () => {
@@ -88,6 +91,7 @@ function NormalPlayer(props: any) {
     normalPlayerRef.current.style.display = 'none';
   };
 
+
   return (
     <CSSTransition
       classNames="normal"
@@ -128,6 +132,16 @@ function NormalPlayer(props: any) {
           </CDWrapper>
         </Middle>
         <Bottom className="bottom">
+          <ProgressWrapper>
+            {/*<span className="time time-l">{formatPlayTime(currentTime)}</span>*/}
+            <div className="progress-bar-wrapper">
+              <ProgressBar
+                percent={percent}
+                // percentChange={onProgressChange}
+              />
+            </div>
+            {/*<div className="time time-r">{formatPlayTime(duration)}</div>*/}
+          </ProgressWrapper>
           <Operators>
             <div className="icon i-left">
               <i className="iconfont">&#xe625;</i>
