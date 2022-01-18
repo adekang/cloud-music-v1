@@ -106,6 +106,10 @@ function NormalPlayer(props: any) {
     normalPlayerRef.current.style.display = 'none';
   };
 
+  const goBack = () => {
+    toggleFullScreen(false);
+  };
+
   return (
     <CSSTransition
       classNames="normal"
@@ -128,7 +132,7 @@ function NormalPlayer(props: any) {
         </div>
         <div className="background layer"/>
         <Top className="top">
-          <div className="back">
+          <div className="back" onClick={goBack}>
             <i className="iconfont icon-back">&#xe662;</i>
           </div>
           <h1 className="title">{song.name}</h1>
@@ -138,7 +142,7 @@ function NormalPlayer(props: any) {
           <CDWrapper>
             <div className="cd">
               <img
-                className="image play"
+                className={`image play ${playing ? '' : 'pause'}`}
                 src={song.al.picUrl + '?param=400x400'}
                 alt=""
               />
@@ -164,7 +168,13 @@ function NormalPlayer(props: any) {
               <i className="iconfont">&#xe6e1;</i>
             </div>
             <div className="icon i-center">
-              <i className="iconfont">&#xe723;</i>
+              <i
+                className="iconfont"
+                onClick={e => clickPlaying(e, !playing)}
+                dangerouslySetInnerHTML={{
+                  __html: playing ? '&#xe723;' : '&#xe731;'
+                }}
+              />
             </div>
             <div className="icon i-right">
               <i className="iconfont">&#xe718;</i>
