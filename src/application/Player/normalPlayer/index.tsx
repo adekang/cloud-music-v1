@@ -12,6 +12,7 @@ import {
   ProgressWrapper,
 } from './style';
 import ProgressBar from '../../../baseUI/progressBar';
+import {playMode} from '../../../api/config';
 
 
 function NormalPlayer(props: any) {
@@ -94,6 +95,18 @@ function NormalPlayer(props: any) {
     toggleFullScreen(false);
   };
 
+  const getPlayMode = () => {
+    let content;
+    if (mode === playMode.sequence) {
+      content = '&#xe625;';
+    } else if (mode === playMode.loop) {
+      content = '&#xe653;';
+    } else {
+      content = '&#xe61b;';
+    }
+    return content;
+  };
+
   return (
     <CSSTransition
       classNames="normal"
@@ -145,8 +158,8 @@ function NormalPlayer(props: any) {
             <div className="time time-r">{formatPlayTime(duration)}</div>
           </ProgressWrapper>
           <Operators>
-            <div className="icon i-left">
-              <i className="iconfont">&#xe625;</i>
+            <div className="icon i-left" onClick={changeMode}>
+              <i className="iconfont" dangerouslySetInnerHTML={{__html: getPlayMode()}}/>
             </div>
             <div className="icon i-left" onClick={handlePrev}>
               <i className="iconfont">&#xe6e1;</i>
