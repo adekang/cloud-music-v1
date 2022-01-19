@@ -104,8 +104,14 @@ function Player(props: any) {
 //歌曲播放进度
   let percent = isNaN(currentTime / duration) ? 0 : currentTime / duration;
 
-  const onProgressChange = () => {
+  const onProgressChange = (curPercent: number) => {
     console.log('onProgressChange');
+    const newTime = curPercent * duration;
+    setCurrentTime(newTime);
+    audioRef.current.currentTime = newTime;
+    if (!playing) {
+      togglePlayingDispatch(true);
+    }
   };
 
   const clickPlaying = (e: any, state: any) => {
@@ -132,6 +138,12 @@ function Player(props: any) {
   useEffect(() => {
     playing ? audioRef.current.play() : audioRef.current.pause();
   }, [playing]);
+
+  // 更新时间
+  const updateTime = (e: any) => {
+    setCurrentTime(e.target.currentTime);
+  };
+
   return (
     <div>
       {isEmptyObject(currentSong) ? null :
@@ -141,6 +153,7 @@ function Player(props: any) {
           playing={playing}
           toggleFullScreen={toggleFullScreenDispatch}
           clickPlaying={clickPlaying}
+          percent={percent}//进度
         />
       }
       {isEmptyObject(currentSong) ? null :
@@ -148,11 +161,15 @@ function Player(props: any) {
           song={currentSong}
           fullScreen={fullScreen}
           playing={playing}
+          onProgressChange={onProgressChange}
           toggleFullScreen={toggleFullScreenDispatch}
           clickPlaying={clickPlaying}
+          duration={duration}//总时长
+          currentTime={currentTime}//播放时间
+          percent={percent}//进度
         />
       }
-      <audio ref={audioRef}/>
+      <audio ref={audioRef} onTimeUpdate={updateTime}/>
     </div>
   );
 }

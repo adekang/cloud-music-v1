@@ -1,8 +1,7 @@
 import React, {useRef, useState} from 'react';
-import {getName} from '../../../api/utils';
+import {getName, prefixStyle, formatPlayTime} from '../../../api/utils';
 import {CSSTransition} from 'react-transition-group';
 import animations from 'create-keyframe-animation';
-import {prefixStyle} from '../../../api/utils';
 import {
   NormalPlayerContainer,
   Top,
@@ -16,26 +15,11 @@ import ProgressBar from '../../../baseUI/progressBar';
 
 
 function NormalPlayer(props: any) {
-  const {
-    fullScreen,
-    song,
-    mode,
-    playing,
-    percent,
-    currentTime,
-    duration,
-  } = props;
-
-  const {
-    changeMode,
-    handlePrev,
-    handleNext,
-    onProgressChange,
-    clickPlaying,
-    toggleFullScreen
-  } = props;
-
+  const {fullScreen, song, mode, playing, percent, currentTime, duration,} = props;
+  const {changeMode, handlePrev, handleNext, onProgressChange, clickPlaying, toggleFullScreen} = props;
   const {toggleFullScreenDispatch} = props;
+
+
   const normalPlayerRef = useRef<any>();
   const cdWrapperRef = useRef<any>();
   const transform = prefixStyle('transform');
@@ -151,14 +135,14 @@ function NormalPlayer(props: any) {
         </Middle>
         <Bottom className="bottom">
           <ProgressWrapper>
-            {/*<span className="time time-l">{formatPlayTime(currentTime)}</span>*/}
+            <span className="time time-l">{formatPlayTime(currentTime)}</span>
             <div className="progress-bar-wrapper">
               <ProgressBar
                 percent={percent}
                 percentChange={onProgressChange}
               />
             </div>
-            {/*<div className="time time-r">{formatPlayTime(duration)}</div>*/}
+            <div className="time time-r">{formatPlayTime(duration)}</div>
           </ProgressWrapper>
           <Operators>
             <div className="icon i-left">

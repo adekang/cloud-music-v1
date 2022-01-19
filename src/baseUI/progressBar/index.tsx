@@ -41,18 +41,16 @@ const ProgressBarWrapper = styled.div`
 `;
 
 function ProgressBar(props: any) {
-
+  const {percent} = props;
+  const {percentChange} = props;
   const transform = prefixStyle('transform');
+
   const progressBar = useRef<any>();
   const progress = useRef<any>();
   const progressBtn = useRef<any>();
   const [touch, setTouch] = useState<any>({});
 
   const progressBtnWidth = 8;
-
-  const {percent} = props;
-
-  const {percentChange} = props;
 
   useEffect(() => {
     if (percent >= 0 && percent <= 1 && !touch.initiated) {
@@ -87,7 +85,6 @@ function ProgressBar(props: any) {
     // @ts-ignore
     setTouch(startTouch);
   };
-
   const progressTouchMove = (e: any) => {
     if (!touch.initiated) return;
     // 滑动距离
@@ -97,7 +94,6 @@ function ProgressBar(props: any) {
     _offset(offsetWidth);
     _changePercent();
   };
-
   const progressTouchEnd = (e: any) => {
     const endTouch = JSON.parse(JSON.stringify(touch));
     endTouch.initiated = false;
