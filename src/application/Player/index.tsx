@@ -130,24 +130,33 @@ function Player(props: any) {
   const [modeText, setModeText] = useState('');
   const toastRef = useRef<any>();
 
+  const songReady = useRef<any>(true);
+
   useEffect(() => {
     if (
       !playList.length ||
       currentIndex === -1 ||
       !playList[currentIndex] ||
-      playList[currentIndex].id === preSong.id
+      playList[currentIndex].id === preSong.id ||
+      !songReady.current// 标志位为 false
     )
       return;
     let current = playList[currentIndex];
-    changeCurrentDispatch(current);//赋值currentSong
     setPreSong(current);
+    songReady.current = false; // 把标志位置为 false, 表示现在新的资源没有缓冲完成，不能切歌
+    changeCurrentDispatch(current);// 赋值 currentSong
     audioRef.current.src = getSongUrl(current.id);
     setTimeout(() => {
-      audioRef.current.play();
+      // 注意，play 方法返回的是一个 promise 对象
+      audioRef.current.play().then(() => {
+        songReady.current = true;
+      }, (err: any) => {
+        console.log('播放错误::', err);
+      });
     });
-    togglePlayingDispatch(true);//播放状态
-    setCurrentTime(0);//从头开始播放
-    setDuration((current.dt / 1000) | 0);//时长
+    togglePlayingDispatch(true);// 播放状态
+    setCurrentTime(0);// 从头开始播放
+    setDuration((current.dt / 1000) | 0);// 时长
   }, [playList, currentIndex]);
 
   const onProgressChange = (curPercent: number) => {
@@ -252,6 +261,10 @@ function Player(props: any) {
     }
   };
 
+  const handleError = () => {
+    songReady.current = true;
+    alert('播放出错');
+  };
   return (
     <div>
       {isEmptyObject(currentSong) ? null :
@@ -281,7 +294,7 @@ function Player(props: any) {
           changeMode={changeMode}
         />
       }
-      <audio ref={audioRef} onEnded={handleEnd} onTimeUpdate={updateTime}/>
+      <audio ref={audioRef} onEnded={handleEnd} onTimeUpdate={updateTime} onError={handleError}/>
       <Toast text={modeText} ref={toastRef}/>
     </div>
   );

@@ -10,7 +10,7 @@ import Loading from '../../baseUI/loading/index';
 import {renderRoutes} from 'react-router-config';
 
 function Recommend(props: any) {
-  const {bannerList, recommendList, enterLoading, history} = props;
+  const {bannerList, recommendList, enterLoading, history, songsCount} = props;
 
   const {getBannerDataDispatch, getRecommendListDataDispatch} = props;
 
@@ -31,7 +31,7 @@ function Recommend(props: any) {
 
 
   return (
-    <Content>
+    <Content play={songsCount}>
       {enterLoading ? <Loading show/> : null}
       <Scroll onScroll={forceCheck}>
         <div>
@@ -50,7 +50,8 @@ const mapStateToProps = (state: { getIn: (arg0: string[]) => any; }) => ({
   // 不然每次 diff 比对 props 的时候都是不一样的引用，还是导致不必要的重渲染，属于滥用 immutable
   bannerList: state.getIn(['recommend', 'bannerList']),
   recommendList: state.getIn(['recommend', 'recommendList']),
-  enterLoading: state.getIn(['recommend', 'enterLoading'])
+  enterLoading: state.getIn(['recommend', 'enterLoading']),
+  songsCount: state.getIn(['player', 'playList']).size,//尽量减少toJS操作，直接取size属性就代表了list的长度
 });
 // 映射 dispatch 到 props 上
 const mapDispatchToProps = (dispatch: (arg0: any) => void) => {
