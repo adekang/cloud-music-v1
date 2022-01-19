@@ -72,6 +72,7 @@ function Player(props: any) {
     console.log('新歌曲：：', getSongUrl(current.id));
     audioRef.current.src = getSongUrl(current.id as number);
     setCurrentTime(0);//从头开始播放
+    togglePlayingDispatch(true);
     audioRef.current.play();
     setDuration((current.dt / 1000) | 0);//时长
     // eslint-disable-next-line
