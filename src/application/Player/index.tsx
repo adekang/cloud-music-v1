@@ -144,6 +144,38 @@ function Player(props: any) {
     setCurrentTime(e.target.currentTime);
   };
 
+  // 歌曲切换逻辑
+  //一首歌循环
+  const handleLoop = () => {
+    audioRef.current.currentTime = 0;
+    changePlayingState(true);
+    audioRef.current.play();
+  };
+
+  const handlePrev = () => {
+    //播放列表只有一首歌时单曲循环
+    if (playList.length === 1) {
+      handleLoop();
+      return;
+    }
+    let index = currentIndex - 1;
+    if (index < 0) index = playList.length - 1;
+    if (!playing) togglePlayingDispatch(true);
+    changeCurrentIndexDispatch(index);
+  };
+
+  const handleNext = () => {
+    //播放列表只有一首歌时单曲循环
+    if (playList.length === 1) {
+      handleLoop();
+      return;
+    }
+    let index = currentIndex + 1;
+    if (index === playList.length) index = 0;
+    if (!playing) togglePlayingDispatch(true);
+    changeCurrentIndexDispatch(index);
+  };
+
   return (
     <div>
       {isEmptyObject(currentSong) ? null :
@@ -167,6 +199,8 @@ function Player(props: any) {
           duration={duration}//总时长
           currentTime={currentTime}//播放时间
           percent={percent}//进度
+          handlePrev={handlePrev}
+          handleNext={handleNext}
         />
       }
       <audio ref={audioRef} onTimeUpdate={updateTime}/>
