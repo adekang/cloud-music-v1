@@ -6,9 +6,12 @@ import ProgressCircle from '../../../baseUI/progress-circle';
 
 function MiniPlayer(props: any) {
   const {song, fullScreen, playing, percent} = props;
-  const {toggleFullScreen, clickPlaying} = props;
+  const {toggleFullScreen, clickPlaying, togglePlayList} = props;
 
-
+  const handleTogglePlayList = (e: any) => {
+    togglePlayList(true);
+    e.stopPropagation();
+  };
   const miniPlayerRef = useRef<any>();
 
   return (
@@ -44,7 +47,7 @@ function MiniPlayer(props: any) {
             }
           </ProgressCircle>
         </div>
-        <div className="control">
+        <div className="control" onClick={handleTogglePlayList}>
           <i className="iconfont">&#xe640;</i>
         </div>
       </MiniPlayerContainer>

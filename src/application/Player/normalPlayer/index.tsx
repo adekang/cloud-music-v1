@@ -18,7 +18,7 @@ import {playMode} from '../../../api/config';
 function NormalPlayer(props: any) {
   const {fullScreen, song, mode, playing, percent, currentTime, duration,} = props;
   const {changeMode, handlePrev, handleNext, onProgressChange, clickPlaying, toggleFullScreen} = props;
-  const {toggleFullScreenDispatch} = props;
+  const {toggleFullScreenDispatch, togglePlayList} = props;
 
 
   const normalPlayerRef = useRef<any>();
@@ -176,7 +176,7 @@ function NormalPlayer(props: any) {
             <div className="icon i-right" onClick={handleNext}>
               <i className="iconfont">&#xe718;</i>
             </div>
-            <div className="icon i-right">
+            <div className="icon i-right" onClick={() => {togglePlayList(true);}}>
               <i className="iconfont">&#xe640;</i>
             </div>
           </Operators>

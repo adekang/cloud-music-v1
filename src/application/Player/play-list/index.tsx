@@ -55,24 +55,23 @@ function PlayList(props: any) {
   const [isShow, setIsShow] = useState(false);
   const transform = prefixStyle('transform');
 
+
+  // 动画
   const onEnterCB = useCallback(() => {
     //让列表显示
     setIsShow(true);
     //最开始是隐藏在下面
     listWrapperRef.current.style[transform] = `translate3d(0, 100%, 0)`;
   }, [transform]);
-
   const onEnteringCB = useCallback(() => {
     //让列表展现
     listWrapperRef.current.style['transition'] = 'all 0.3s';
     listWrapperRef.current.style[transform] = `translate3d(0, 0, 0)`;
   }, [transform]);
-
   const onExitingCB = useCallback(() => {
     listWrapperRef.current.style['transition'] = 'all 0.3s';
     listWrapperRef.current.style[transform] = `translate3d(0px, 100%, 0px)`;
   }, [transform]);
-
   const onExitedCB = useCallback(() => {
     setIsShow(false);
     listWrapperRef.current.style[transform] = `translate3d(0px, 100%, 0px)`;
@@ -151,7 +150,7 @@ function PlayList(props: any) {
     let state = pos.y === 0;
     setCanTouch(state);
   };
-
+  // 下滑关闭及反弹效果
   const handleTouchStart = (e: any) => {
     if (!canTouch || initialed) return;
     listWrapperRef.current.style['transition'] = '';
