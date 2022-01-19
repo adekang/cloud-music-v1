@@ -10,6 +10,8 @@ import style from '../../assets/global-style';
 import {connect} from 'react-redux';
 import Loading from '../../baseUI/loading';
 import {changeEnterLoading, getAlbumList} from './store/actionCreators';
+import MusicNote from '../../baseUI/music-note';
+import SongsList from '../SongList';
 
 export const HEADER_HEIGHT = 45;
 
@@ -65,6 +67,7 @@ const Album: React.FC<Props> = (props) => {
     }
   }, [currentAlbum]);
 
+
   const renderTopDesc = () => {
     return (
       <TopDesc background={currentAlbum.coverImgUrl}>
@@ -115,39 +118,12 @@ const Album: React.FC<Props> = (props) => {
     );
   };
 
-  const renderSongList = () => {
-    return (
-      <SongList>
-        <div className="first_line">
-          <div className="play_all">
-            <i className="iconfont">&#xe6e3;</i>
-            <span>播放全部 <span className="sum">(共{currentAlbum.tracks.length}首)</span></span>
-          </div>
-          <div className="add_list">
-            <i className="iconfont">&#xe62d;</i>
-            <span>收藏({getCount(currentAlbum.subscribedCount)})</span>
-          </div>
-        </div>
-        <SongItem>
-          {
-            currentAlbum.tracks.map((item: any, index: number) => {
-              return (
-                <li key={index}>
-                  <span className="index">{index + 1}</span>
-                  <div className="info">
-                    <span>{item.name}</span>
-                    <span>
-                      {getName(item.ar)} - {item.al.name}
-                    </span>
-                  </div>
-                </li>
-              );
-            })
-          }
-        </SongItem>
-      </SongList>
-    );
+  const musicNoteRef = useRef<any>();
+
+  const musicAnimation = (x: any, y: any) => {
+    musicNoteRef.current.startAnimation({x, y});
   };
+
   return (
     <>
       <CSSTransition
@@ -168,10 +144,16 @@ const Album: React.FC<Props> = (props) => {
             >
               {renderTopDesc()}
               {renderMenu()}
-              {renderSongList()}
+              <SongsList
+                songs={currentAlbum.tracks}
+                collectCount={currentAlbum.subscribedCount}
+                showCollect={true}
+                showBackground={true}
+                musicAnimation={musicAnimation}
+              />
             </Scroll>) : null}
           {enterLoading ? <Loading/> : null}
-
+          <MusicNote ref={musicNoteRef}/>
         </Container>
       </CSSTransition>
     </>

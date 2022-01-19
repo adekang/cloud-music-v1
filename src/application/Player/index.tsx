@@ -130,11 +130,6 @@ function Player(props: any) {
   const [modeText, setModeText] = useState('');
   const toastRef = useRef<any>();
 
-//先mock一份currentIndex
-  useEffect(() => {
-    changeCurrentIndexDispatch(0);
-  }, []);
-
   useEffect(() => {
     if (
       !playList.length ||

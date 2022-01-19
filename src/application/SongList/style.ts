@@ -10,7 +10,7 @@ export const SongList = styled.div<CustomStyleProps>`
   border-radius: 10px;
   opacity: 0.98;
 
-  ${props => props.showBackground ? `background: ${style['highlight-background-color']}` : ''}
+  ${props => props.showBackground ? `background: ${style['highlight-background-color']};` : ''}
   .first_line {
     box-sizing: border-box;
     padding: 10px 0;

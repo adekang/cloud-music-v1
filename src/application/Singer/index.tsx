@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import Loading from './../../baseUI/loading/index';
 import {getSingerInfo, changeEnterLoading} from './store/actionCreators';
 import SongsList from '../SongList';
+import MusicNote from '../../baseUI/music-note';
 
 function Singer(props: any) {
   const initialHeight = useRef(0);
@@ -90,6 +91,12 @@ function Singer(props: any) {
     setShowStatus(false);
   }, []);
 
+  const musicNoteRef = useRef<any>();
+
+  const musicAnimation = (x: any, y: any) => {
+    musicNoteRef.current.startAnimation({x, y});
+  };
+
   return (
     <CSSTransition
       in={showStatus}
@@ -118,10 +125,12 @@ function Singer(props: any) {
             <SongsList
               songs={songs}
               showCollect={false}
+              musicAnimation={musicAnimation}
             />
           </Scroll>
         </SongListWrapper>
         {loading ? (<Loading/>) : null}
+        <MusicNote ref={musicNoteRef}/>
       </Container>
     </CSSTransition>
   );
