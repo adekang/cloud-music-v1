@@ -109,3 +109,11 @@ export const findIndex = (song, list) => {
     return song.id === item.id
   })
 }
+//拼接出歌曲的url链接
+export const getSongUrl = id => {
+  return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+}
+
+//除去手机号码的空格符号
+export const trimPhone = val => val.replace(/(^\s+)|(\s+$)|\s+/g, '')
+

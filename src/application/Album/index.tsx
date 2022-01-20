@@ -142,15 +142,17 @@ const Album: React.FC<Props> = (props) => {
               bounceTop={false}
               onScroll={handleScroll}
             >
-              {renderTopDesc()}
-              {renderMenu()}
-              <SongsList
-                songs={currentAlbum.tracks}
-                collectCount={currentAlbum.subscribedCount}
-                showCollect={true}
-                showBackground={true}
-                musicAnimation={musicAnimation}
-              />
+              <div>
+                {renderTopDesc()}
+                {renderMenu()}
+                <SongsList
+                  songs={currentAlbum.tracks}
+                  collectCount={currentAlbum.subscribedCount}
+                  showCollect={true}
+                  showBackground={true}
+                  musicAnimation={musicAnimation}
+                />
+              </div>
             </Scroll>) : null}
           {enterLoading ? <Loading/> : null}
           <MusicNote ref={musicNoteRef}/>
