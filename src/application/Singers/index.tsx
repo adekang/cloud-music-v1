@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {alphaTypes, categoryTypes} from '../../api/config';
 import Horizon from '../../baseUI/horizen-item';
 import Scroll from '../../baseUI/scroll';
@@ -40,7 +40,7 @@ const Singers = (props: any) => {
 
   const {updateDispatch, getHotSinger, updateCategory, updateAlpha, pullUpRefresh, pullDownRefresh} = props;
 
-  let [category, setCategory] = useState('');
+  let [category, setCategory] = useState('1001');
   let [alpha, setAlpha] = useState('');
 
   let handleUpdateAlpha = (val: string) => {
@@ -48,6 +48,9 @@ const Singers = (props: any) => {
     updateDispatch(category, val);
   };
 
+  useEffect(() => {
+    updateDispatch('1001', alpha);
+  }, []);
 
   let handleUpdateCategory = (val: string) => {
     setCategory(val);
@@ -62,7 +65,6 @@ const Singers = (props: any) => {
     pullDownRefreshDispatch(category, alpha);
   };
   const enterDetail = (id: number) => {
-    console.log(props);
     props.history.push(`/singers/${id}`);
   };
 
