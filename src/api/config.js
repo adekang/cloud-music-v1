@@ -86,7 +86,6 @@ export const categoryTypes = [
 ]
 
 // 歌手首字母
-
 export const alphaTypes = [
   {
     key: 'A',
