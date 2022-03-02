@@ -49,41 +49,41 @@ function NormalPlayer(props: any) {
   };
   // 启用帧动画
   const enter = () => {
-    normalPlayerRef.current.style.display = 'block';
-    const {x, y, scale} = _getPosAndScale();// 获取 miniPlayer 图片中心相对 normalPlayer 唱片中心的偏移
-    let animation = {
+    normalPlayerRef.current.style.display = "block";
+    const { x, y, scale } = _getPosAndScale(); // 获取 miniPlayer 图片中心相对 normalPlayer 唱片中心的偏移
+    const animation = {
       0: {
-        transform: `translate3d (${x} px,${y} px,0) scale (${scale})`
+        transform: `translate3d(${x}px,${y}px,0) scale(${scale})`
       },
       60: {
-        transform: `translate3d (0, 0, 0) scale (1.1)`
+        transform: `translate3d(0, 0, 0) scale(1.1)`
       },
       100: {
-        transform: `translate3d (0, 0, 0) scale (1)`
+        transform: `translate3d(0, 0, 0) scale(1)`
       }
     };
     animations.registerAnimation({
-      name: 'move',
+      name: "move",
       animation,
       presets: {
         duration: 400,
-        easing: 'linear'
+        easing: "linear"
       }
     });
-    animations.runAnimation(cdWrapperRef.current, 'move');
+    animations.runAnimation(cdWrapperRef.current, "move");
   };
   const afterEnter = () => {
     // 进入后解绑帧动画
     const cdWrapperDom = cdWrapperRef.current;
-    animations.unregisterAnimation('move');
-    cdWrapperDom.style.animation = '';
+    animations.unregisterAnimation("move");
+    cdWrapperDom.style.animation = "";
   };
   const leave = () => {
     if (!cdWrapperRef.current) return;
     const cdWrapperDom = cdWrapperRef.current;
-    cdWrapperDom.style.transition = 'all 0.4s';
-    const {x, y, scale} = _getPosAndScale();
-    cdWrapperDom.style[transform] = `translate3d (${x} px, ${y} px, 0) scale (${scale})`;
+    cdWrapperDom.style.transition = "all 0.4s";
+    const { x, y, scale } = _getPosAndScale();
+    cdWrapperDom.style[transform] = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
   };
   const afterLeave = () => {
     if (!cdWrapperRef.current) return;

@@ -10,12 +10,12 @@ const CircleWrapper = styled.div`
     transform-origin: center;
 
     &.progress-background {
-      transform: scale (0.9);
+      transform: scale(0.9);
       stroke: ${style['theme-color-shadow']};
     }
 
     &.progress-bar {
-      transform: scale (0.9) rotate (-90deg);
+      transform: scale(0.9) rotate(-90deg);
       stroke: ${style['theme-color']};
     }
   }

@@ -73,9 +73,14 @@ function Player(props: any) {
     console.log('新歌曲：：', getSongUrl(current.id));
     audioRef.current.src = getSongUrl(current.id as number);
     setCurrentTime(0);//从头开始播放
-    togglePlayingDispatch(true);
-    audioRef.current.play();
 
+    setTimeout(() => {
+      // 注意，play 方法返回的是一个 promise 对象
+      audioRef.current.play().then(() => {
+        songReady.current = true;
+      });
+    });
+    togglePlayingDispatch(true);
     getLyric(current.id);
     setDuration((current.dt / 1000) | 0);//时长
     // eslint-disable-next-line
