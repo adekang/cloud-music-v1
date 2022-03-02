@@ -128,7 +128,7 @@ function NormalPlayer(props: any) {
     let bScroll = lyricScrollRef.current.getBScroll();
     if (currentLineNum > 5) {
       // 保持当前歌词在第 5 条的位置
-      let lineEl = lyricLineRefs.current [currentLineNum - 5].current;
+      let lineEl = lyricLineRefs.current[currentLineNum - 5].current;
       bScroll.scrollToElement(lineEl, 1000);
     } else {
       // 当前歌词行数 <=5, 直接滚动到最顶端
