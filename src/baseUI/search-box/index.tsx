@@ -23,7 +23,7 @@ const SearchBoxWrapper = styled.div`
     margin: 0 5px;
     line-height: 18px;
     background: ${style['theme-color']};
-    color: ${style ['highlight-background-color']};
+    color: ${style['highlight-background-color']};
     font-size: ${style['font-size-m']};
     outline: none;
     border: none;
