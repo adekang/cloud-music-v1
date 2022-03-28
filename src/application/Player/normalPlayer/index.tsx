@@ -31,6 +31,8 @@ function NormalPlayer(props: any) {
   const { toggleFullScreenDispatch, togglePlayList } = props;
   const { currentLineNum, currentPlayingLyric, currentLyric } = props;
 
+  const [currentState, setCurrentState] = useState<"" | "lyric">("");
+
   const normalPlayerRef = useRef<any>();
   const cdWrapperRef = useRef<any>();
   const transform = prefixStyle("transform");
@@ -100,7 +102,7 @@ function NormalPlayer(props: any) {
     // 一定要注意现在要把 normalPlayer 这个 DOM 给隐藏掉，因为 CSSTransition 的工作只是把动画执行一遍
     // 不置为 none 现在全屏播放器页面还是存在
     normalPlayerRef.current.style.display = "none";
-    currentState = "";
+    setCurrentState("");
   };
 
   const goBack = () => {
@@ -118,7 +120,6 @@ function NormalPlayer(props: any) {
     }
     return content;
   };
-  const [currentState, setCurrentState] = useState<"" | "lyric">("");
 
   const lyricScrollRef = useRef<any>();
   const lyricLineRefs = useRef<any>([]);
